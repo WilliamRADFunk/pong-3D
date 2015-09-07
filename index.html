@@ -24,6 +24,11 @@
 	var xDir = 0.03;
 	var yDir = BALLSPEED;
 	var scoreObject1, scoreObject2, p1Score = "00", p2Score = "00", p1ScoreOld, p2ScoreOld;
+	var crowdCounter = 0;
+	var spectator01, spectator02, spectator03, spectator04, spectator05, 
+		spectator06, spectator07, spectator08, spectator09, spectator10, 
+		spectator11, spectator12, spectator13, spectator14, spectator15, 
+		spectator16, spectator17, spectator18, spectator19, spectator20;
 	var paddle1, paddle2, ball;
 	var explode, one, two, three, four;
 	
@@ -201,7 +206,7 @@
 			xDir = -xDir;
 			four.play();
 		}
-		
+		var paddleCollisionDetect = Math.abs( paddle2.position.x - ball.position.x );
 		if( ball.position.y < -8.5 && yDir < 0 )
 		{
 			yDir = BALLSPEED;
@@ -278,7 +283,6 @@
 		{
 			yDir = -BALLSPEED;
 			
-			var paddleCollisionDetect = Math.abs( paddle2.position.x - ball.position.x );
 			if( paddleCollisionDetect <= 1.4 )
 			{
 				if( paddleCollisionDetect >= 0.9 )
@@ -347,7 +351,11 @@
 				}
 			}
 		}
-		if( (paddle2.position.x < ball.position.x) )
+		if ( paddleCollisionDetect < COMPSPEED )
+		{
+			paddle2.position.x = ball.position.x;
+		}
+		else if( (paddle2.position.x < ball.position.x) )
 		{
 			if( !(paddle2.position.x >= 3.5) )
 			{
@@ -478,6 +486,106 @@
 			xDir = 0;
 		}
 	}
+	// Creates both scores, updating only when a score changes.
+	function updateCrowd()
+	{
+		scene.remove( 	spectator01, spectator02, spectator03, spectator04, spectator05, 
+						spectator06, spectator07, spectator08, spectator09, spectator10, 
+						spectator11, spectator12, spectator13, spectator14, spectator15, 
+						spectator16, spectator17, spectator18, spectator19, spectator20
+					);
+		if(crowdCounter == 0)
+		{
+			var spectator01Geometry = new THREE.PlaneGeometry( 0.25, 0.25, 1, 10);
+			var spectator01Material = new THREE.MeshLambertMaterial( {color: 'green'} );
+			var spectator01 = new THREE.Mesh( spectator01Geometry, spectator01Material );
+			spectator01.position.x = -5;
+			spectator01.position.y = -7;
+			spectator01.position.z = 1;
+			spectator01.rotation.x = 25 * Math.PI / 180;
+			scene.add( spectator01 );
+
+			var spectator02Geometry = new THREE.PlaneGeometry( 0.25, 0.25, 1, 10);
+			var spectator02Material = new THREE.MeshLambertMaterial( {color: 'green'} );
+			var spectator02 = new THREE.Mesh( spectator02Geometry, spectator01Material );
+			spectator02.position.x = 5;
+			spectator02.position.y = -7;
+			spectator02.position.z = 1.125;
+			spectator02.rotation.x = 25 * Math.PI / 180;
+			scene.add( spectator02 );
+
+			//crowdCounter++;
+		}
+		else if(crowdCounter == 1)
+		{
+			var spectator01Geometry = new THREE.PlaneGeometry( 0.25, 0.25, 1, 10);
+			var spectator01Material = new THREE.MeshLambertMaterial( {color: 0xFF0000} );
+			var spectator01 = new THREE.Mesh( spectator01Geometry, spectator01Material );
+			spectator01.position.x = -5;
+			spectator01.position.y = -7;
+			spectator01.position.z = 1.125;
+			spectator01.rotation.x = 25 * Math.PI / 180;
+			scene.add( spectator01 );
+
+			var spectator02Geometry = new THREE.PlaneGeometry( 0.25, 0.25, 1, 10);
+			var spectator02Material = new THREE.MeshLambertMaterial( {color: 0x00FF00} );
+			var spectator02 = new THREE.Mesh( spectator02Geometry, spectator01Material );
+			spectator02.position.x = 5;
+			spectator02.position.y = -7;
+			spectator02.position.z = 1;
+			spectator02.rotation.x = 25 * Math.PI / 180;
+			scene.add( spectator02 );
+
+
+			//crowdCounter++;
+		}
+		else if(crowdCounter == 2)
+		{
+			var spectator01Geometry = new THREE.PlaneGeometry( 0.25, 0.25, 1, 10);
+			var spectator01Material = new THREE.MeshLambertMaterial( {color: 0x0000FF} );
+			var spectator01 = new THREE.Mesh( spectator01Geometry, spectator01Material );
+			spectator01.position.x = -5;
+			spectator01.position.y = -7;
+			spectator01.position.z = 1.25;
+			spectator01.rotation.x = 25 * Math.PI / 180;
+			scene.add( spectator01 );
+
+			var spectator02Geometry = new THREE.PlaneGeometry( 0.25, 0.25, 1, 10);
+			var spectator02Material = new THREE.MeshLambertMaterial( {color: 0x00FF00} );
+			var spectator02 = new THREE.Mesh( spectator02Geometry, spectator01Material );
+			spectator02.position.x = 5;
+			spectator02.position.y = -7;
+			spectator02.position.z = 1.125;
+			spectator02.rotation.x = 25 * Math.PI / 180;
+			scene.add( spectator02 );
+
+
+			//crowdCounter++;
+		}
+		else
+		{
+			var spectator01Geometry = new THREE.PlaneGeometry( 0.25, 0.25, 1, 10);
+			var spectator01Material = new THREE.MeshLambertMaterial( {color: 0xFF0000} );
+			var spectator01 = new THREE.Mesh( spectator01Geometry, spectator01Material );
+			spectator01.position.x = -5;
+			spectator01.position.y = -7;
+			spectator01.position.z = 1;
+			spectator01.rotation.x = 25 * Math.PI / 180;
+			scene.add( spectator01 );
+
+			var spectator02Geometry = new THREE.PlaneGeometry( 0.25, 0.25, 1, 10);
+			var spectator02Material = new THREE.MeshLambertMaterial( {color: 'green'} );
+			var spectator02 = new THREE.Mesh( spectator02Geometry, spectator01Material );
+			spectator02.position.x = 5;
+			spectator02.position.y = -7;
+			spectator02.position.z = 1.25;
+			spectator02.rotation.x = 25 * Math.PI / 180;
+			scene.add( spectator02 );
+
+
+			crowdCounter = 0;
+		}
+	}
 	// Sets up the basics: camera, scene, renderer. Calls constructor methods.
 	function init()
 	{
@@ -530,19 +638,18 @@
 		p2ScoreOld = p2Score;
 
 		updateScore();
+		updateCrowd();
 
 		render();
 	}
 	// Render loop continuously updates screen at 60 FPS
 	function render()
 	{
-		//camera.rotation.y = 0.1 * Math.PI / 180;
-		//camera.rotation.x = 5 * Math.PI / 180;
-
 		moveBallAndMaintainPaddles();
 		if(p1Score != p1ScoreOld || p2Score != p2ScoreOld)
 		{
 			updateScore();
+			updateCrowd();
 		}
 		requestAnimationFrame( render );
 		renderer.render( scene, camera );
