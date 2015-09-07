@@ -33,6 +33,7 @@
 		spectator26, spectator27, spectator28, spectator29, spectator30, 
 		spectator31, spectator32, spectator33, spectator34, spectator35, 
 		spectator36, spectator37, spectator38, spectator39, spectator40;
+	var spectatorFlag = [ 0 ];
 	var paddle1, paddle2, ball;
 	var explode, one, two, three, four;
 	
@@ -490,7 +491,7 @@
 			xDir = 0;
 		}
 	}
-	// Creates both scores, updating only when a score changes.
+	// Creates the crowd.
 	function createCrowd()
 	{
 		var yellowMaterial = new THREE.MeshLambertMaterial( {color: 0xFFFF00} );
@@ -760,6 +761,205 @@
 		spectator40.position.z = num1rowz;
 		scene.add( spectator40 );
 	}
+	// Udates the crowd. Normal speedsimulates random movement. Fast speed for point scored.
+	function updateCrowd()
+	{
+		var spectatorChosen = Math.floor((Math.random() * 10) + 1);
+
+		switch(spectatorChosen)
+		{
+			case 1:
+			{
+				if(spectatorFlag[0] == 0)
+				{
+					spectator01.position.z += 0.125;
+					spectator05.position.z += 0.125;
+					spectator09.position.z += 0.125;
+					spectator13.position.z += 0.125;
+					spectatorFlag[0] = 1;
+				}
+				else
+				{
+					spectator01.position.z -= 0.125;
+					spectator05.position.z -= 0.125;
+					spectator09.position.z -= 0.125;
+					spectator13.position.z -= 0.125;
+					spectatorFlag[0] = 0;
+				}
+			}
+			case 2:
+			{
+				if(spectatorFlag[1] == 0)
+				{
+					spectator02.position.z += 0.125;
+					spectator06.position.z += 0.125;
+					spectator10.position.z += 0.125;
+					spectator14.position.z += 0.125;
+					spectatorFlag[1] = 1;
+				}
+				else
+				{
+					spectator02.position.z -= 0.125;
+					spectator06.position.z -= 0.125;
+					spectator10.position.z -= 0.125;
+					spectator14.position.z -= 0.125;
+					spectatorFlag[1] = 0;
+				}
+			}
+			case 3:
+			{
+				if(spectatorFlag[2] == 0)
+				{
+					spectator03.position.z += 0.125;
+					spectator07.position.z += 0.125;
+					spectator11.position.z += 0.125;
+					spectator15.position.z += 0.125;
+					spectatorFlag[2] = 1;
+				}
+				else
+				{
+					spectator03.position.z -= 0.125;
+					spectator07.position.z -= 0.125;
+					spectator11.position.z -= 0.125;
+					spectator15.position.z -= 0.125;
+					spectatorFlag[2] = 0;
+				}
+			}
+			case 4:
+			{
+				if(spectatorFlag[3] == 0)
+				{
+					spectator04.position.z += 0.125;
+					spectator08.position.z += 0.125;
+					spectator12.position.z += 0.125;
+					spectator16.position.z += 0.125;
+					spectatorFlag[3] = 1;
+				}
+				else
+				{
+					spectator04.position.z -= 0.125;
+					spectator08.position.z -= 0.125;
+					spectator12.position.z -= 0.125;
+					spectator16.position.z -= 0.125;
+					spectatorFlag[3] = 0;
+				}
+			}
+			case 5:
+			{
+				if(spectatorFlag[4] == 0)
+				{
+					spectator17.position.z += 0.125;
+					spectator18.position.z += 0.125;
+					spectator19.position.z += 0.125;
+					spectator20.position.z += 0.125;
+					spectatorFlag[4] = 1;
+				}
+				else
+				{
+					spectator17.position.z -= 0.125;
+					spectator18.position.z -= 0.125;
+					spectator19.position.z -= 0.125;
+					spectator20.position.z -= 0.125;
+					spectatorFlag[4] = 0;
+				}
+			}
+			case 6:
+			{
+				if(spectatorFlag[5] == 0)
+				{
+					spectator37.position.z += 0.125;
+					spectator25.position.z += 0.125;
+					spectator29.position.z += 0.125;
+					spectator33.position.z += 0.125;
+					spectatorFlag[5] = 1;
+				}
+				else
+				{
+					spectator37.position.z -= 0.125;
+					spectator25.position.z -= 0.125;
+					spectator29.position.z -= 0.125;
+					spectator33.position.z -= 0.125;
+					spectatorFlag[5] = 0;
+				}
+			}
+			case 7:
+			{
+				if(spectatorFlag[6] == 0)
+				{
+					spectator22.position.z += 0.125;
+					spectator38.position.z += 0.125;
+					spectator30.position.z += 0.125;
+					spectator34.position.z += 0.125;
+					spectatorFlag[6] = 1;
+				}
+				else
+				{
+					spectator22.position.z -= 0.125;
+					spectator38.position.z -= 0.125;
+					spectator30.position.z -= 0.125;
+					spectator34.position.z -= 0.125;
+					spectatorFlag[6] = 0;
+				}
+			}
+			case 8:
+			{
+				if(spectatorFlag[7] == 0)
+				{
+					spectator23.position.z += 0.125;
+					spectator27.position.z += 0.125;
+					spectator40.position.z += 0.125;
+					spectator35.position.z += 0.125;
+					spectatorFlag[7] = 1;
+				}
+				else
+				{
+					spectator23.position.z -= 0.125;
+					spectator27.position.z -= 0.125;
+					spectator40.position.z -= 0.125;
+					spectator35.position.z -= 0.125;
+					spectatorFlag[7] = 0;
+				}
+			}
+			case 9:
+			{
+				if(spectatorFlag[8] == 0)
+				{
+					spectator24.position.z += 0.125;
+					spectator28.position.z += 0.125;
+					spectator32.position.z += 0.125;
+					spectator36.position.z += 0.125;
+					spectatorFlag[8] = 1;
+				}
+				else
+				{
+					spectator24.position.z -= 0.125;
+					spectator28.position.z -= 0.125;
+					spectator32.position.z -= 0.125;
+					spectator36.position.z -= 0.125;
+					spectatorFlag[8] = 0;
+				}
+			}
+			case 10:
+			{
+				if(spectatorFlag[9] == 0)
+				{
+					spectator21.position.z += 0.125;
+					spectator26.position.z += 0.125;
+					spectator39.position.z += 0.125;
+					spectator31.position.z += 0.125;
+					spectatorFlag[9] = 1;
+				}
+				else
+				{
+					spectator21.position.z -= 0.125;
+					spectator26.position.z -= 0.125;
+					spectator39.position.z -= 0.125;
+					spectator31.position.z -= 0.125;
+					spectatorFlag[9] = 0;
+				}
+			}
+		}
+	}
 	// Sets up the basics: camera, scene, renderer. Calls constructor methods.
 	function init()
 	{
@@ -819,15 +1019,25 @@
 	// Render loop continuously updates screen at 60 FPS
 	function render()
 	{
-		moveBallAndMaintainPaddles();
-		if(p1Score != p1ScoreOld || p2Score != p2ScoreOld)
+		if(crowdCounter % 10 == 0)
 		{
-			updateScore();
+			updateCrowd();
 		}
-		requestAnimationFrame( render );
-		renderer.render( scene, camera );
-		p1ScoreOld = p1Score;
-		p2ScoreOld = p2Score;
+
+		if(p1ScoreOld < 10 && p2ScoreOld < 10)
+		{
+			moveBallAndMaintainPaddles();
+			if(p1Score != p1ScoreOld || p2Score != p2ScoreOld)
+			{
+				updateScore();
+				updateCrowd();
+			}
+			requestAnimationFrame( render );
+			renderer.render( scene, camera );
+			p1ScoreOld = p1Score;
+			p2ScoreOld = p2Score;
+			crowdCounter++;
+		}
 	}
 	
 	window.onload = init;
