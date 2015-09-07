@@ -5,14 +5,14 @@ function moveBallAndMaintainPaddles()
 	ball.position.x += xDir;
 	ball.position.y += yDir;
 	
-	if( Key.isDown( Key.A ) )
+	if( Key.isDown( Key.A ) || Key.isDown( Key.LEFT ) )
 	{
 		if( !(paddle1.position.x <= -3.5) )
 		{
 			paddle1.position.x -= PLAYERSPEED;
 		}
 	}
-	else if( Key.isDown( Key.D ) )
+	else if( Key.isDown( Key.D ) || Key.isDown( Key.RIGHT ) )
 	{
 		if( !(paddle1.position.x >= 3.5) )
 		{

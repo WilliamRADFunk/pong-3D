@@ -473,7 +473,7 @@ function createCrowd()
 // Sets up the basics: camera, scene, renderer. Calls constructor methods.
 function init()
 {
-	WIDTH = window.innerWidth;
+	WIDTH = (window.innerWidth) * 0.97;
 	HEIGHT = window.innerHeight;
 
 	loadSounds();
