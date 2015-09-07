@@ -28,7 +28,11 @@
 	var spectator01, spectator02, spectator03, spectator04, spectator05, 
 		spectator06, spectator07, spectator08, spectator09, spectator10, 
 		spectator11, spectator12, spectator13, spectator14, spectator15, 
-		spectator16, spectator17, spectator18, spectator19, spectator20;
+		spectator16, spectator17, spectator18, spectator19, spectator20,
+		spectator21, spectator22, spectator23, spectator24, spectator25, 
+		spectator26, spectator27, spectator28, spectator29, spectator30, 
+		spectator31, spectator32, spectator33, spectator34, spectator35, 
+		spectator36, spectator37, spectator38, spectator39, spectator40;
 	var paddle1, paddle2, ball;
 	var explode, one, two, three, four;
 	
@@ -495,12 +499,17 @@
 		var blueMaterial = new THREE.MeshLambertMaterial( {color: 0x0000FF} );
 		var greenMaterial = new THREE.MeshLambertMaterial( {color: 0x00FF00} );
 		var redMaterial = new THREE.MeshLambertMaterial( {color: 0xFF0000} );
+		var blackMaterial = new THREE.MeshLambertMaterial( {color: 0x000000} );
+		var whiteMaterial = new THREE.MeshLambertMaterial( {color: 0xFFFFFF} );
+		var orangeMaterial = new THREE.MeshLambertMaterial( {color: 0xFF6600} );
+		var purpleMaterial = new THREE.MeshLambertMaterial( {color: 0x4B0082} );
 
 		var boxGeometry = new THREE.BoxGeometry( 0.25, 0.25, 0.25);
 
 		var num1rowRightx = 4.625;
 		var num2rowRightx = 4.875;
 		var num3rowRightx = 5.125;
+		var num4rowRightx = 5.375;
 		var num1rowLeftx = -4.625;
 		var num2rowLeftx = -4.875;
 		var num3rowLeftx = -5.125;
@@ -512,18 +521,18 @@
 		var num4rowz = 1.125;
 
 		spectator01 = new THREE.Mesh( boxGeometry, redMaterial );
-		spectator01.position.x = num3rowLeftx;
+		spectator01.position.x = num3rowRightx;
 		spectator01.position.y = -7;
 		spectator01.position.z = num3rowz;
 		scene.add( spectator01 );
 
 		spectator02 = new THREE.Mesh( boxGeometry, greenMaterial );
-		spectator02.position.x = num3rowRightx;
+		spectator02.position.x = num4rowRightx;
 		spectator02.position.y = 7;
-		spectator02.position.z = num3rowz;
+		spectator02.position.z = num4rowz;
 		scene.add( spectator02 );
 
-		spectator03 = new THREE.Mesh( boxGeometry, blueMaterial );
+		spectator03 = new THREE.Mesh( boxGeometry, purpleMaterial );
 		spectator03.position.x = num2rowRightx;
 		spectator03.position.y = 2;
 		spectator03.position.z = num2rowz;
@@ -536,15 +545,15 @@
 		scene.add( spectator04 );
 
 		spectator05 = new THREE.Mesh( boxGeometry, cyanMaterial );
-		spectator05.position.x = num2rowLeftx;
+		spectator05.position.x = num2rowRightx;
 		spectator05.position.y = 5;
 		spectator05.position.z = num2rowz;
 		scene.add( spectator05 );
 
 		spectator06 = new THREE.Mesh( boxGeometry, yellowMaterial );
-		spectator06.position.x = num4rowLeftx;
+		spectator06.position.x = num1rowRightx;
 		spectator06.position.y = 0;
-		spectator06.position.z = num4rowz;
+		spectator06.position.z = num1rowz;
 		scene.add( spectator06 );
 
 		spectator07 = new THREE.Mesh( boxGeometry, yellowMaterial );
@@ -554,10 +563,202 @@
 		scene.add( spectator07 );
 
 		spectator08 = new THREE.Mesh( boxGeometry, lavenderMaterial );
-		spectator08.position.x = num1rowLeftx;
-		spectator08.position.y = -2;
+		spectator08.position.x = num1rowRightx;
+		spectator08.position.y = -3;
 		spectator08.position.z = num1rowz;
 		scene.add( spectator08 );
+
+		spectator09 = new THREE.Mesh( boxGeometry, blueMaterial );
+		spectator09.position.x = num4rowRightx;
+		spectator09.position.y = -8;
+		spectator09.position.z = num4rowz;
+		scene.add( spectator09 );
+
+		spectator10 = new THREE.Mesh( boxGeometry, purpleMaterial );
+		spectator10.position.x = num3rowRightx;
+		spectator10.position.y = -4.5;
+		spectator10.position.z = num3rowz;
+		scene.add( spectator10 );
+
+		spectator11 = new THREE.Mesh( boxGeometry, blackMaterial );
+		spectator11.position.x = num3rowRightx;
+		spectator11.position.y = -7.5;
+		spectator11.position.z = num3rowz;
+		scene.add( spectator11 );
+
+		spectator12 = new THREE.Mesh( boxGeometry, whiteMaterial );
+		spectator12.position.x = num3rowRightx;
+		spectator12.position.y = 7.5;
+		spectator12.position.z = num3rowz;
+		scene.add( spectator12 );
+
+		spectator13 = new THREE.Mesh( boxGeometry, blueMaterial );
+		spectator13.position.x = num2rowRightx;
+		spectator13.position.y = 2.5;
+		spectator13.position.z = num2rowz;
+		scene.add( spectator13 );
+
+		spectator14 = new THREE.Mesh( boxGeometry, yellowMaterial );
+		spectator14.position.x = num1rowRightx;
+		spectator14.position.y = -5.5;
+		spectator14.position.z = num1rowz;
+		scene.add( spectator14 );
+
+		spectator15 = new THREE.Mesh( boxGeometry, orangeMaterial );
+		spectator15.position.x = num1rowRightx;
+		spectator15.position.y = 5.5;
+		spectator15.position.z = num1rowz;
+		scene.add( spectator15 );
+
+		spectator16 = new THREE.Mesh( boxGeometry, blackMaterial );
+		spectator16.position.x = num4rowRightx;
+		spectator16.position.y = 0.5;
+		spectator16.position.z = num4rowz;
+		scene.add( spectator16 );
+
+		spectator17 = new THREE.Mesh( boxGeometry, whiteMaterial );
+		spectator17.position.x = num2rowRightx;
+		spectator17.position.y = -2.5;
+		spectator17.position.z = num2rowz;
+		scene.add( spectator17 );
+
+		spectator18 = new THREE.Mesh( boxGeometry, lavenderMaterial );
+		spectator18.position.x = num1rowRightx;
+		spectator18.position.y = -6;
+		spectator18.position.z = num1rowz;
+		scene.add( spectator18 );
+
+		spectator19 = new THREE.Mesh( boxGeometry, blueMaterial );
+		spectator19.position.x = num4rowRightx;
+		spectator19.position.y = -1;
+		spectator19.position.z = num4rowz;
+		scene.add( spectator19 );
+
+		spectator20 = new THREE.Mesh( boxGeometry, lavenderMaterial );
+		spectator20.position.x = num3rowRightx;
+		spectator20.position.y = 6.5;
+		spectator20.position.z = num3rowz;
+		scene.add( spectator20 );
+
+		spectator21 = new THREE.Mesh( boxGeometry, greenMaterial );
+		spectator21.position.x = num1rowLeftx;
+		spectator21.position.y = -7;
+		spectator21.position.z = num1rowz;
+		scene.add( spectator21 );
+
+		spectator22 = new THREE.Mesh( boxGeometry, purpleMaterial );
+		spectator22.position.x = num2rowLeftx;
+		spectator22.position.y = 7;
+		spectator22.position.z = num2rowz;
+		scene.add( spectator22 );
+
+		spectator23 = new THREE.Mesh( boxGeometry, cyanMaterial );
+		spectator23.position.x = num4rowLeftx;
+		spectator23.position.y = 2;
+		spectator23.position.z = num4rowz;
+		scene.add( spectator23 );
+
+		spectator24 = new THREE.Mesh( boxGeometry, cyanMaterial );
+		spectator24.position.x = num3rowLeftx;
+		spectator24.position.y = -5;
+		spectator24.position.z = num3rowz;
+		scene.add( spectator24 );
+
+		spectator25 = new THREE.Mesh( boxGeometry, yellowMaterial );
+		spectator25.position.x = num4rowLeftx;
+		spectator25.position.y = 5;
+		spectator25.position.z = num4rowz;
+		scene.add( spectator25 );
+
+		spectator26 = new THREE.Mesh( boxGeometry, yellowMaterial );
+		spectator26.position.x = num3rowLeftx;
+		spectator26.position.y = 0;
+		spectator26.position.z = num3rowz;
+		scene.add( spectator26 );
+
+		spectator27 = new THREE.Mesh( boxGeometry, greenMaterial );
+		spectator27.position.x = num4rowLeftx;
+		spectator27.position.y = -2;
+		spectator27.position.z = num4rowz;
+		scene.add( spectator27 );
+
+		spectator28 = new THREE.Mesh( boxGeometry, blueMaterial );
+		spectator28.position.x = num3rowLeftx;
+		spectator28.position.y = -3;
+		spectator28.position.z = num3rowz;
+		scene.add( spectator28 );
+
+		spectator29 = new THREE.Mesh( boxGeometry, purpleMaterial );
+		spectator29.position.x = num2rowLeftx;
+		spectator29.position.y = -8;
+		spectator29.position.z = num2rowz;
+		scene.add( spectator29 );
+
+		spectator30 = new THREE.Mesh( boxGeometry, blackMaterial );
+		spectator30.position.x = num1rowLeftx;
+		spectator30.position.y = -4.5;
+		spectator30.position.z = num1rowz;
+		scene.add( spectator30 );
+
+		spectator31 = new THREE.Mesh( boxGeometry, whiteMaterial );
+		spectator31.position.x = num1rowLeftx;
+		spectator31.position.y = -7.5;
+		spectator31.position.z = num1rowz;
+		scene.add( spectator31 );
+
+		spectator32 = new THREE.Mesh( boxGeometry, blueMaterial );
+		spectator32.position.x = num1rowLeftx;
+		spectator32.position.y = 7.5;
+		spectator32.position.z = num1rowz;
+		scene.add( spectator32 );
+
+		spectator33 = new THREE.Mesh( boxGeometry, yellowMaterial );
+		spectator33.position.x = num4rowLeftx;
+		spectator33.position.y = 2.5;
+		spectator33.position.z = num4rowz;
+		scene.add( spectator33 );
+
+		spectator34 = new THREE.Mesh( boxGeometry, orangeMaterial );
+		spectator34.position.x = num3rowLeftx;
+		spectator34.position.y = -5.5;
+		spectator34.position.z = num3rowz;
+		scene.add( spectator34 );
+
+		spectator35 = new THREE.Mesh( boxGeometry, blackMaterial );
+		spectator35.position.x = num3rowLeftx;
+		spectator35.position.y = 5.5;
+		spectator35.position.z = num3rowz;
+		scene.add( spectator35 );
+
+		spectator36 = new THREE.Mesh( boxGeometry, whiteMaterial );
+		spectator36.position.x = num2rowLeftx;
+		spectator36.position.y = 0.5;
+		spectator36.position.z = num2rowz;
+		scene.add( spectator36 );
+
+		spectator37 = new THREE.Mesh( boxGeometry, lavenderMaterial );
+		spectator37.position.x = num4rowLeftx;
+		spectator37.position.y = -2.5;
+		spectator37.position.z = num4rowz;
+		scene.add( spectator37 );
+
+		spectator38 = new THREE.Mesh( boxGeometry, blueMaterial );
+		spectator38.position.x = num3rowLeftx;
+		spectator38.position.y = -6;
+		spectator38.position.z = num3rowz;
+		scene.add( spectator38 );
+
+		spectator39 = new THREE.Mesh( boxGeometry, redMaterial );
+		spectator39.position.x = num2rowLeftx;
+		spectator39.position.y = -1;
+		spectator39.position.z = num2rowz;
+		scene.add( spectator39 );
+
+		spectator40 = new THREE.Mesh( boxGeometry, redMaterial );
+		spectator40.position.x = num1rowLeftx;
+		spectator40.position.y = 6.5;
+		spectator40.position.z = num1rowz;
+		scene.add( spectator40 );
 	}
 	// Sets up the basics: camera, scene, renderer. Calls constructor methods.
 	function init()
