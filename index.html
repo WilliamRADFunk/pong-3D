@@ -1,10 +1,11 @@
 <html>
 
 <head>
-<script src='js/three.js'></script>
-<script src="js/OrbitControls.js"></script>
-<script src='js/keyboard.js'></script>
-<script src='fonts/helvetiker_regular.typeface.js'></script>
+	<title>Pong 3D</title>
+	<script src='js/three.js'></script>
+	<script src="js/OrbitControls.js"></script>
+	<script src='js/keyboard.js'></script>
+	<script src='fonts/helvetiker_regular.typeface.js'></script>
 </head>
 
 <body>
@@ -17,10 +18,14 @@
 	var startTime;
 	var WIDTH;
 	var HEIGHT;
-	var COMPSPEED = 0.04;
+	var COMPSPEED = 0.055;
 	var PLAYERSPEED = 0.04;
 	var BALLSPEED = 0.12;
-	var p1ScoreOld, p2ScoreOld;
+	var xDir = 0.03;
+	var yDir = BALLSPEED;
+	var scoreObject1, scoreObject2, p1Score = "00", p2Score = "00", p1ScoreOld, p2ScoreOld;
+	var paddle1, paddle2, ball;
+	var explode, one, two, three, four;
 	
 	function createPlayBottom()
 	{
@@ -68,9 +73,7 @@
 
 		var edges2 = new THREE.EdgesHelper( wall2, 0x555555 );
 		scene.add( edges2 );
-	}
-
-	var paddle1, paddle2;	
+	}	
 	function createPaddles()
 	{
 		var opponentPaddle = new THREE.BoxGeometry( 2, .5, 1 );
@@ -93,8 +96,6 @@
 		var edges1 = new THREE.EdgesHelper( paddle1, 0x000000 );
 		scene.add( edges1 );
 	}
-	
-	var ball;
 	function createBall()
 	{
 		var ballSphere = new THREE.SphereGeometry( 0.5, 50 );
@@ -103,9 +104,6 @@
 		ball.position.z = 0.5;
 		scene.add( ball );
 	}
-
-	var xDir = 0.03;
-	var yDir = BALLSPEED;
 	function moveBallAndMaintainPaddles()
 	{
 	
@@ -127,13 +125,15 @@
 			}
 		}
 		
-		if( ball.position.x < -4 )
+		if( ball.position.x <= -4 )
 		{
+			ball.position.x = -3.9;
 			xDir = -xDir;
 			three.play();
 		}
-		else if( ball.position.x > 4 )
+		else if( ball.position.x >= 4 )
 		{
+			ball.position.x = 3.9;
 			xDir = -xDir;
 			four.play();
 		}
@@ -298,8 +298,6 @@
 			}
 		}
 	}
-
-	var explode, one, two, three, four;
 	function loadSounds()
 	{
 		applause1 = new Audio('assets/applause1.mp3');
@@ -310,8 +308,6 @@
 		three = new Audio('assets/3.mp3');
 		four = new Audio('assets/4.mp3');
 	}
-
-	var scoreObject1, scoreObject2, p1Score = "00", p2Score = "00";
 	function createScoreBoard()
 	{
 		var planeGeometry = new THREE.PlaneGeometry( 5, 5, 10, 10 );
@@ -408,6 +404,7 @@
 			ball.position.x = 0;
 			ball.position.y = 0;
 			BALLSPEED = 0;
+			yDir = 0
 			xDir = 0;
 		}
 	}
@@ -471,8 +468,8 @@
 	
 	function render()
 	{
-		//camera.rotation.y += 0.1 * Math.PI / 180;
-		//camera.rotation.x += 0.06 * Math.PI / 180;
+		//camera.rotation.y = 0.1 * Math.PI / 180;
+		//camera.rotation.x = 5 * Math.PI / 180;
 
 		moveBallAndMaintainPaddles();
 		if(p1Score != p1ScoreOld || p2Score != p2ScoreOld)
