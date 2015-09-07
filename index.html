@@ -27,6 +27,7 @@
 	var paddle1, paddle2, ball;
 	var explode, one, two, three, four;
 	
+	// Creates the pong table and the design on top.
 	function createPlayBottom()
 	{
 		var planeGeometry = new THREE.PlaneGeometry( 10, 18, 10, 10 );
@@ -52,28 +53,89 @@
 		centerCircle2.position.z = .015;
 		scene.add( centerCircle2 );
 	}
-	
+	// Creates the sidewalls / audience seating.
 	function createBoundingWalls()
 	{
-		var leftWall = new THREE.BoxGeometry( 1, 18, 1 );
+		var leftWall1 = new THREE.BoxGeometry( 1, 18, 0.25 );
 		var wallMaterial = new THREE.MeshLambertMaterial( {color: 0xBBBBBB} );
-		var wall1 = new THREE.Mesh( leftWall, wallMaterial );
-		wall1.position.z = 0.5;
+		var wall1 = new THREE.Mesh( leftWall1, wallMaterial );
 		wall1.position.x = -5;
+		wall1.position.z = 0.125;
 		scene.add( wall1 );
 		
 		var edges1 = new THREE.EdgesHelper( wall1, 0x5555555 );
 		scene.add( edges1 );
+
+		var leftWall1_2 = new THREE.BoxGeometry( 0.75, 18, 0.25 );
+		var wallMaterial = new THREE.MeshLambertMaterial( {color: 0xBBBBBB} );
+		var wall1_2 = new THREE.Mesh( leftWall1_2, wallMaterial );
+		wall1_2.position.x = -5.125;
+		wall1_2.position.z = 0.375;
+		scene.add( wall1_2 );
 		
-		var rightWall = new THREE.BoxGeometry( 1, 18, 1 );
-		var wall2 = new THREE.Mesh( rightWall, wallMaterial );
+		var edges1_2 = new THREE.EdgesHelper( wall1_2, 0x5555555 );
+		scene.add( edges1_2 );
+
+		var leftWall1_3 = new THREE.BoxGeometry( 0.5, 18, 0.25 );
+		var wallMaterial = new THREE.MeshLambertMaterial( {color: 0xBBBBBB} );
+		var wall1_3 = new THREE.Mesh( leftWall1_3, wallMaterial );
+		wall1_3.position.x = -5.25;
+		wall1_3.position.z = 0.625;
+		scene.add( wall1_3 );
+		
+		var edges1_3 = new THREE.EdgesHelper( wall1_3, 0x5555555 );
+		scene.add( edges1_3 );
+
+		var leftWall1_4 = new THREE.BoxGeometry( 0.25, 18, 0.25 );
+		var wallMaterial = new THREE.MeshLambertMaterial( {color: 0xBBBBBB} );
+		var wall1_4 = new THREE.Mesh( leftWall1_4, wallMaterial );
+		wall1_4.position.x = -5.375;
+		wall1_4.position.z = 0.875;
+		scene.add( wall1_4 );
+		
+		var edges1_4 = new THREE.EdgesHelper( wall1_4, 0x5555555 );
+		scene.add( edges1_4 );
+		
+		var rightWall1 = new THREE.BoxGeometry( 1, 18, 0.25 );
+		var wall2 = new THREE.Mesh( rightWall1, wallMaterial );
 		wall2.position.x = 5;
-		wall2.position.z = 0.5;
+		wall2.position.z = 0.125;
 		scene.add( wall2 );
 
 		var edges2 = new THREE.EdgesHelper( wall2, 0x555555 );
 		scene.add( edges2 );
-	}	
+
+		var rightWall2_2 = new THREE.BoxGeometry( 0.75, 18, 0.25 );
+		var wallMaterial = new THREE.MeshLambertMaterial( {color: 0xBBBBBB} );
+		var wall2_2 = new THREE.Mesh( rightWall2_2, wallMaterial );
+		wall2_2.position.x = 5.125;
+		wall2_2.position.z = 0.375;
+		scene.add( wall2_2 );
+		
+		var edges2_2 = new THREE.EdgesHelper( wall2_2, 0x5555555 );
+		scene.add( edges2_2 );
+
+		var rightWall2_3 = new THREE.BoxGeometry( 0.5, 18, 0.25 );
+		var wallMaterial = new THREE.MeshLambertMaterial( {color: 0xBBBBBB} );
+		var wall2_3 = new THREE.Mesh( rightWall2_3, wallMaterial );
+		wall2_3.position.x = 5.25;
+		wall2_3.position.z = 0.625;
+		scene.add( wall2_3 );
+		
+		var edges2_3 = new THREE.EdgesHelper( wall2_3, 0x5555555 );
+		scene.add( edges2_3 );
+
+		var rightWall2_4 = new THREE.BoxGeometry( 0.25, 18, 0.25 );
+		var wallMaterial = new THREE.MeshLambertMaterial( {color: 0xBBBBBB} );
+		var wall2_4 = new THREE.Mesh( rightWall2_4, wallMaterial );
+		wall2_4.position.x = 5.375;
+		wall2_4.position.z = 0.875;
+		scene.add( wall2_4 );
+		
+		var edges2_4 = new THREE.EdgesHelper( wall2_4, 0x5555555 );
+		scene.add( edges2_4 );
+	}
+	// Creates the player's and the computer's paddles.
 	function createPaddles()
 	{
 		var opponentPaddle = new THREE.BoxGeometry( 2, .5, 1 );
@@ -96,14 +158,16 @@
 		var edges1 = new THREE.EdgesHelper( paddle1, 0x000000 );
 		scene.add( edges1 );
 	}
+	// Creates the pong ball
 	function createBall()
 	{
-		var ballSphere = new THREE.SphereGeometry( 0.5, 50 );
+		var ballSphere = new THREE.SphereGeometry( 0.3, 50 );
 		var ballMaterial = new THREE.MeshLambertMaterial( {color: 0xFFB6C1} );
 		ball = new THREE.Mesh( ballSphere, ballMaterial );
 		ball.position.z = 0.5;
 		scene.add( ball );
 	}
+	// Moves the ball and paddles. Collision detection determines if point was scored.
 	function moveBallAndMaintainPaddles()
 	{
 	
@@ -298,6 +362,7 @@
 			}
 		}
 	}
+	// Loads sound effects
 	function loadSounds()
 	{
 		applause1 = new Audio('assets/applause1.mp3');
@@ -308,6 +373,7 @@
 		three = new Audio('assets/3.mp3');
 		four = new Audio('assets/4.mp3');
 	}
+	// Creates score board and the labels, but not score itself.
 	function createScoreBoard()
 	{
 		var planeGeometry = new THREE.PlaneGeometry( 5, 5, 10, 10 );
@@ -358,7 +424,7 @@
 		scoreLabel2.rotation.x = 45 * Math.PI / 180;
 		scene.add( scoreLabel2 );
 	}
-
+	// Creates both scores, updating only when a score changes.
 	function updateScore()
 	{
 		scene.remove( scoreObject1 );
@@ -412,7 +478,7 @@
 			xDir = 0;
 		}
 	}
-	
+	// Sets up the basics: camera, scene, renderer. Calls constructor methods.
 	function init()
 	{
 		WIDTH = window.innerWidth;
@@ -467,7 +533,7 @@
 
 		render();
 	}
-	
+	// Render loop continuously updates screen at 60 FPS
 	function render()
 	{
 		//camera.rotation.y = 0.1 * Math.PI / 180;
