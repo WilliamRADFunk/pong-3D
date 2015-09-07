@@ -150,10 +150,12 @@
 					if(paddle1.position.x < ball.position.x)
 					{
 						xDir = Math.abs(5 * xDir);
+						xDir = (xDir >= 0.1) ? 0.1 : 0.08;
 					}
 					else
 					{
 						xDir = -Math.abs(5 * xDir);
+						xDir = (xDir <= -0.1) ? -0.1 : -0.08;
 					}
 				}
 				else if( paddleCollisionDetect >= 0.4 )
@@ -161,21 +163,23 @@
 					if(paddle1.position.x < ball.position.x)
 					{
 						xDir = Math.abs(3 * xDir);
+						xDir = (xDir >= 0.05) ? 0.05 : 0.03;
 					}
 					else
 					{
 						xDir = -Math.abs(3 * xDir);
+						xDir = (xDir <= -0.05) ? -0.05 : -0.03;
 					}
 				}
 				else
 				{
 					if(paddle1.position.x < ball.position.x)
 					{
-						xDir = Math.abs(1 * xDir);
+						xDir = Math.abs(0.8 * xDir);
 					}
 					else
 					{
-						xDir = -Math.abs(1 * xDir);
+						xDir = -Math.abs(0.8 * xDir);
 					}
 				}
 				one.play();
@@ -217,33 +221,37 @@
 				{
 					if(paddle2.position.x < ball.position.x)
 					{
-						xDir = Math.abs(3 * xDir);
+						xDir = Math.abs(5 * xDir);
+						xDir = (xDir >= 0.1) ? 0.1 : 0.08;
 					}
 					else
 					{
-						xDir = -Math.abs(3 * xDir);
+						xDir = -Math.abs(5 * xDir);
+						xDir = (xDir <= -0.1) ? -0.1 : -0.08;
 					}
 				}
 				else if( paddleCollisionDetect >= 0.4 )
 				{
 					if(paddle2.position.x < ball.position.x)
 					{
-						xDir = Math.abs(2 * xDir);
+						xDir = Math.abs(3 * xDir);
+						xDir = (xDir >= 0.05) ? 0.05 : 0.03;
 					}
 					else
 					{
-						xDir = -Math.abs(2 * xDir);
+						xDir = -Math.abs(3 * xDir);
+						xDir = (xDir <= -0.05) ? -0.05 : -0.03;
 					}
 				}
 				else
 				{
 					if(paddle2.position.x < ball.position.x)
 					{
-						xDir = Math.abs(1 * xDir);
+						xDir = Math.abs(0.8 * xDir);
 					}
 					else
 					{
-						xDir = -Math.abs(1 * xDir);
+						xDir = -Math.abs(0.8 * xDir);
 					}
 				}
 				two.play();
