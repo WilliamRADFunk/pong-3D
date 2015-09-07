@@ -316,6 +316,7 @@
 		scoreBoard1.position.x = -8;
 		scoreBoard1.position.y = 6;
 		scoreBoard1.position.z = 1;
+		scoreBoard1.rotation.x = 25 * Math.PI / 180;
 		scene.add( scoreBoard1 );
 
 		var planeGeometry = new THREE.PlaneGeometry( 5, 5, 10, 10 );
@@ -324,6 +325,7 @@
 		scoreBoard2.position.x = 8;
 		scoreBoard2.position.y = 6;
 		scoreBoard2.position.z = 1;
+		scoreBoard2.rotation.x = 25 * Math.PI / 180;
 		scene.add( scoreBoard2 );
 
 		var textGeometry1 = new THREE.TextGeometry("Player Score",
@@ -337,8 +339,8 @@
 		var scoreLabel1 = new THREE.Mesh( textGeometry1, textMaterial1 );
 		scoreLabel1.position.x = -9.5;
 		scoreLabel1.position.y = 7.5;
-		scoreLabel1.position.z = 0.85;
-		scoreLabel1.rotation.x = -24.75;
+		scoreLabel1.position.z = 1.8;
+		scoreLabel1.rotation.x = 45 * Math.PI / 180;
 		scene.add( scoreLabel1 );
 
 		var textGeometry2 = new THREE.TextGeometry("Computer Score",
@@ -352,8 +354,8 @@
 		var scoreLabel2 = new THREE.Mesh( textGeometry2, textMaterial2 );
 		scoreLabel2.position.x = 6;
 		scoreLabel2.position.y = 7.5;
-		scoreLabel2.position.z = 0.85;
-		scoreLabel2.rotation.x = -24.75;
+		scoreLabel2.position.z = 1.8;
+		scoreLabel2.rotation.x = 45 * Math.PI / 180;
 		scene.add( scoreLabel2 );
 	}
 
@@ -382,7 +384,8 @@
 		scoreObject1 = new THREE.Mesh( scoreObjectGeometry1, scoreObjectMaterial1 );
 		scoreObject1.position.x = -9.5;
 		scoreObject1.position.y = 5;
-		scoreObject1.position.z = 0.85;
+		scoreObject1.position.z = 0.60;
+		scoreObject1.rotation.x = 25 * Math.PI / 180;
 		scene.add( scoreObject1 );
 
 		var scoreObjectGeometry2 = new THREE.TextGeometry(p2Score,
@@ -396,7 +399,8 @@
 		scoreObject2 = new THREE.Mesh( scoreObjectGeometry2, scoreObjectMaterial2 );
 		scoreObject2.position.x = 6.5;
 		scoreObject2.position.y = 5;
-		scoreObject2.position.z = 0.85;
+		scoreObject2.position.z = 0.60;
+		scoreObject2.rotation.x = 25 * Math.PI / 180;
 		scene.add( scoreObject2 );
 
 		if(p1Score == 10 || p2Score == 10)
@@ -420,10 +424,8 @@
 	
 		camera = new THREE.PerspectiveCamera( 35, WIDTH / HEIGHT, 0.1, 1000 );
 		camera.position.x = 0;
-		camera.position.y = -15;
-		camera.position.z = 30;
-		camera.rotation.x = -20;
-		camera.rotation.y = -20;
+		camera.position.y = -25;
+		camera.position.z = 10;
 		camera.lookAt( scene.position );
 		
 		renderer = new THREE.WebGLRenderer();
