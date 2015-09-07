@@ -19,4 +19,4 @@ The sound effects were found at SoundBible.com and haven't been altered. They ar
 
 Each score is updated again by the same collision detection, but with the caveat that there is no collision with the paddle. Each point awarded to the player also decreases the player's paddle speed marginally (to create more of a challenge).</br></br>
 
-Tested and functions in latest versions of the following browsers: Chrome, Firefox, Safari, and IE11.
+Tested and functions in latest versions of the following desktop browsers: Chrome (graphically the best), Firefox, Safari, and IE11.
