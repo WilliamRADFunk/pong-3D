@@ -1,0 +1,485 @@
+<html>
+
+<head>
+<script src='js/three.js'></script>
+<script src="js/OrbitControls.js"></script>
+<script src='js/keyboard.js'></script>
+<script src='fonts/helvetiker_regular.typeface.js'></script>
+</head>
+
+<body>
+
+<script>
+	var renderer;
+	var scene;
+	var camera;
+	var orbControls;
+	var startTime;
+	var WIDTH;
+	var HEIGHT;
+	var COMPSPEED = 0.04;
+	var PLAYERSPEED = 0.04;
+	var BALLSPEED = 0.12;
+	var p1ScoreOld, p2ScoreOld;
+	
+	function createPlayBottom()
+	{
+		var planeGeometry = new THREE.PlaneGeometry( 10, 18, 10, 10 );
+		var planeMaterial = new THREE.MeshLambertMaterial( {color: 0x006600} );
+		var plane = new THREE.Mesh( planeGeometry, planeMaterial );
+		scene.add( plane );
+
+		var centerlineGeometry = new THREE.PlaneGeometry( 9, 0.5, 10, 10 );
+		var centerlineMaterial = new THREE.MeshLambertMaterial( {color: 0xFFFFFF} );
+		var centerline = new THREE.Mesh( centerlineGeometry, centerlineMaterial );
+		centerline.position.z = .02;
+		scene.add( centerline );
+
+		var centerCircleGeometry = new THREE.CircleGeometry( 4.0, 50 );
+		var centerCircleMaterial = new THREE.MeshLambertMaterial( {color: 0xFFFFFF} );
+		var centerCircle = new THREE.Mesh( centerCircleGeometry, centerCircleMaterial );
+		centerCircle.position.z = .01;
+		scene.add( centerCircle );
+
+		var centerCircleGeometry2 = new THREE.CircleGeometry( 3.5, 50 );
+		var centerCircleMaterial2 = new THREE.MeshLambertMaterial( {color: 0x006600} );
+		var centerCircle2 = new THREE.Mesh( centerCircleGeometry2, centerCircleMaterial2 );
+		centerCircle2.position.z = .015;
+		scene.add( centerCircle2 );
+	}
+	
+	function createBoundingWalls()
+	{
+		var leftWall = new THREE.BoxGeometry( 1, 18, 1 );
+		var wallMaterial = new THREE.MeshLambertMaterial( {color: 0xBBBBBB} );
+		var wall1 = new THREE.Mesh( leftWall, wallMaterial );
+		wall1.position.z = 0.5;
+		wall1.position.x = -5;
+		scene.add( wall1 );
+		
+		var edges1 = new THREE.EdgesHelper( wall1, 0x5555555 );
+		scene.add( edges1 );
+		
+		var rightWall = new THREE.BoxGeometry( 1, 18, 1 );
+		var wall2 = new THREE.Mesh( rightWall, wallMaterial );
+		wall2.position.x = 5;
+		wall2.position.z = 0.5;
+		scene.add( wall2 );
+
+		var edges2 = new THREE.EdgesHelper( wall2, 0x555555 );
+		scene.add( edges2 );
+	}
+
+	var paddle1, paddle2;	
+	function createPaddles()
+	{
+		var opponentPaddle = new THREE.BoxGeometry( 2, .5, 1 );
+		var oppMaterial = new THREE.MeshLambertMaterial( {color: 0x000066} );
+		paddle2 = new THREE.Mesh( opponentPaddle, oppMaterial );
+		paddle2.position.y = 9;
+		paddle2.position.z = 0.5;
+		scene.add( paddle2 );
+		
+		var edges2 = new THREE.EdgesHelper( paddle2, 0x000000 );
+		scene.add( edges2 );
+		
+		var playerPaddle = new THREE.BoxGeometry( 2, .5, 1 );
+		var plMaterial = new THREE.MeshLambertMaterial( {color: 0x660000} );
+		paddle1 = new THREE.Mesh( playerPaddle, plMaterial );
+		paddle1.position.y = -9;
+		paddle1.position.z = 0.5;
+		scene.add( paddle1 );
+		
+		var edges1 = new THREE.EdgesHelper( paddle1, 0x000000 );
+		scene.add( edges1 );
+	}
+	
+	var ball;
+	function createBall()
+	{
+		var ballSphere = new THREE.SphereGeometry( 0.5, 50 );
+		var ballMaterial = new THREE.MeshLambertMaterial( {color: 0xFFB6C1} );
+		ball = new THREE.Mesh( ballSphere, ballMaterial );
+		ball.position.z = 0.5;
+		scene.add( ball );
+	}
+
+	var xDir = 0.03;
+	var yDir = BALLSPEED;
+	function moveBallAndMaintainPaddles()
+	{
+	
+		ball.position.x += xDir;
+		ball.position.y += yDir;
+		
+		if( Key.isDown( Key.A ) )
+		{
+			if( !(paddle1.position.x <= -3.5) )
+			{
+				paddle1.position.x -= PLAYERSPEED;
+			}
+		}
+		else if( Key.isDown( Key.D ) )
+		{
+			if( !(paddle1.position.x >= 3.5) )
+			{
+				paddle1.position.x += PLAYERSPEED;
+			}
+		}
+		
+		if( ball.position.x < -4 )
+		{
+			xDir = -xDir;
+			three.play();
+		}
+		else if( ball.position.x > 4 )
+		{
+			xDir = -xDir;
+			four.play();
+		}
+		
+		if( ball.position.y < -8.5 && yDir < 0 )
+		{
+			yDir = BALLSPEED;
+			
+			var paddleCollisionDetect = Math.abs( paddle1.position.x - ball.position.x );
+			if( paddleCollisionDetect <= 1.4 )
+			{
+				if( paddleCollisionDetect >= 0.9 )
+				{
+					if(paddle1.position.x < ball.position.x)
+					{
+						xDir = Math.abs(5 * xDir);
+					}
+					else
+					{
+						xDir = -Math.abs(5 * xDir);
+					}
+				}
+				else if( paddleCollisionDetect >= 0.4 )
+				{
+					if(paddle1.position.x < ball.position.x)
+					{
+						xDir = Math.abs(3 * xDir);
+					}
+					else
+					{
+						xDir = -Math.abs(3 * xDir);
+					}
+				}
+				else
+				{
+					if(paddle1.position.x < ball.position.x)
+					{
+						xDir = Math.abs(1 * xDir);
+					}
+					else
+					{
+						xDir = -Math.abs(1 * xDir);
+					}
+				}
+				one.play();
+			}
+			else
+			{
+				ball.position.x = paddle1.position.x;
+				ball.position.y = -8;
+				p2Score++;
+				var applause = Math.floor((Math.random() * 3) + 1);
+				<!-- Sound FX provided by SoundBible.com and were not altered. -->
+				switch(applause)
+				{
+					case 1:
+					{
+						applause1.play();
+						break;
+					}
+					case 2:
+					{
+						applause2.play();
+						break;
+					}
+					default:
+					{
+						applause3.play();
+					}
+				}
+			}
+		}
+		else if( ball.position.y > 8.5 && yDir > 0 )
+		{
+			yDir = -BALLSPEED;
+			
+			var paddleCollisionDetect = Math.abs( paddle2.position.x - ball.position.x );
+			if( paddleCollisionDetect <= 1.4 )
+			{
+				if( paddleCollisionDetect >= 0.9 )
+				{
+					if(paddle2.position.x < ball.position.x)
+					{
+						xDir = Math.abs(3 * xDir);
+					}
+					else
+					{
+						xDir = -Math.abs(3 * xDir);
+					}
+				}
+				else if( paddleCollisionDetect >= 0.4 )
+				{
+					if(paddle2.position.x < ball.position.x)
+					{
+						xDir = Math.abs(2 * xDir);
+					}
+					else
+					{
+						xDir = -Math.abs(2 * xDir);
+					}
+				}
+				else
+				{
+					if(paddle2.position.x < ball.position.x)
+					{
+						xDir = Math.abs(1 * xDir);
+					}
+					else
+					{
+						xDir = -Math.abs(1 * xDir);
+					}
+				}
+				two.play();
+			}
+			else
+			{
+				ball.position.x = paddle2.position.x;
+				ball.position.y = 8;
+				p1Score++;
+				PLAYERSPEED -= 0.002;
+				var applause = Math.floor((Math.random() * 3) + 1);
+				<!-- Sound FX provided by SoundBible.com and were not altered. -->
+				switch(applause)
+				{
+					case 1:
+					{
+						applause1.play();
+						break;
+					}
+					case 2:
+					{
+						applause2.play();
+						break;
+					}
+					default:
+					{
+						applause3.play();
+					}
+				}
+			}
+		}
+		if( (paddle2.position.x < ball.position.x) )
+		{
+			if( !(paddle2.position.x >= 3.5) )
+			{
+				paddle2.position.x += COMPSPEED;
+			}
+		}
+		else
+		{	
+			if( !(paddle2.position.x <= -3.5) )
+			{
+				paddle2.position.x -= COMPSPEED;
+			}
+		}
+	}
+
+	var explode, one, two, three, four;
+	function loadSounds()
+	{
+		applause1 = new Audio('assets/applause1.mp3');
+		applause2 = new Audio('assets/applause2.mp3');
+		applause3 = new Audio('assets/applause3.mp3');
+		one = new Audio('assets/1.mp3');
+		two = new Audio('assets/2.mp3');
+		three = new Audio('assets/3.mp3');
+		four = new Audio('assets/4.mp3');
+	}
+
+	var scoreObject1, scoreObject2, p1Score = "00", p2Score = "00";
+	function createScoreBoard()
+	{
+		var planeGeometry = new THREE.PlaneGeometry( 5, 5, 10, 10 );
+		var planeMaterial = new THREE.MeshLambertMaterial( {color: 0xDDDDDD} );
+		var scoreBoard1 = new THREE.Mesh( planeGeometry, planeMaterial );
+		scoreBoard1.position.x = -8;
+		scoreBoard1.position.y = 6;
+		scoreBoard1.position.z = 1;
+		scene.add( scoreBoard1 );
+
+		var planeGeometry = new THREE.PlaneGeometry( 5, 5, 10, 10 );
+		var planeMaterial = new THREE.MeshLambertMaterial( {color: 0xDDDDDD} );
+		var scoreBoard2 = new THREE.Mesh( planeGeometry, planeMaterial );
+		scoreBoard2.position.x = 8;
+		scoreBoard2.position.y = 6;
+		scoreBoard2.position.z = 1;
+		scene.add( scoreBoard2 );
+
+		var textGeometry1 = new THREE.TextGeometry("Player Score",
+			{
+				size: 0.4,
+				height: 0.2,
+				curveSegments: 10,
+				bevelEnabled: false
+			});
+		var textMaterial1 = new THREE.MeshLambertMaterial( {color: 0xFF0022} );
+		var scoreLabel1 = new THREE.Mesh( textGeometry1, textMaterial1 );
+		scoreLabel1.position.x = -9.5;
+		scoreLabel1.position.y = 7.5;
+		scoreLabel1.position.z = 0.85;
+		scoreLabel1.rotation.x = -24.75;
+		scene.add( scoreLabel1 );
+
+		var textGeometry2 = new THREE.TextGeometry("Computer Score",
+			{
+				size: 0.4,
+				height: 0.2,
+				curveSegments: 10,
+				bevelEnabled: false
+			});
+		var textMaterial2 = new THREE.MeshLambertMaterial( {color: 0x0022FF} );
+		var scoreLabel2 = new THREE.Mesh( textGeometry2, textMaterial2 );
+		scoreLabel2.position.x = 6;
+		scoreLabel2.position.y = 7.5;
+		scoreLabel2.position.z = 0.85;
+		scoreLabel2.rotation.x = -24.75;
+		scene.add( scoreLabel2 );
+	}
+
+	function updateScore()
+	{
+		scene.remove( scoreObject1 );
+		scene.remove( scoreObject2 );
+
+		if(p1Score > 0 && p1Score < 10)
+		{
+			p1Score = "0" + Number(p1Score);
+		}
+		if(p2Score > 0 && p2Score < 10)
+		{
+			p2Score = "0" + Number(p2Score);
+		}
+
+		var scoreObjectGeometry1 = new THREE.TextGeometry(p1Score,
+		{
+			size: 2,
+			height: 0.4,
+			curveSegments: 10,
+			bevelEnabled: false
+		});
+		var scoreObjectMaterial1 = new THREE.MeshLambertMaterial( {color: 0xFF0022} );
+		scoreObject1 = new THREE.Mesh( scoreObjectGeometry1, scoreObjectMaterial1 );
+		scoreObject1.position.x = -9.5;
+		scoreObject1.position.y = 5;
+		scoreObject1.position.z = 0.85;
+		scene.add( scoreObject1 );
+
+		var scoreObjectGeometry2 = new THREE.TextGeometry(p2Score,
+		{
+			size: 2,
+			height: 0.4,
+			curveSegments: 10,
+			bevelEnabled: false
+		});
+		var scoreObjectMaterial2 = new THREE.MeshLambertMaterial( {color: 0x0022FF} );
+		scoreObject2 = new THREE.Mesh( scoreObjectGeometry2, scoreObjectMaterial2 );
+		scoreObject2.position.x = 6.5;
+		scoreObject2.position.y = 5;
+		scoreObject2.position.z = 0.85;
+		scene.add( scoreObject2 );
+
+		if(p1Score == 10 || p2Score == 10)
+		{
+			ball.position.x = 0;
+			ball.position.y = 0;
+			BALLSPEED = 0;
+			xDir = 0;
+		}
+	}
+	
+	function init()
+	{
+		WIDTH = window.innerWidth;
+		HEIGHT = window.innerHeight;
+
+		loadSounds();
+		
+		scene = new THREE.Scene();
+	
+		camera = new THREE.PerspectiveCamera( 35, WIDTH / HEIGHT, 0.1, 1000 );
+		camera.position.x = 0;
+		camera.position.y = -15;
+		camera.position.z = 30;
+		camera.rotation.x = -20;
+		camera.rotation.y = -20;
+		camera.lookAt( scene.position );
+		
+		renderer = new THREE.WebGLRenderer();
+		renderer.setClearColor( 0x000000, 1.0 );
+		renderer.setSize( WIDTH, HEIGHT );
+		renderer.shadowMapEnabled = true;
+	
+		// 1. show a plane representing the bottom of the pong table
+		createPlayBottom();
+		
+		// 2. Create sideboards, which will be parallelapipeds
+		createBoundingWalls();
+		
+		// 3. Create the paddles
+		createPaddles();
+		
+		// 4 Create the ball
+		createBall();
+
+		// 5 Create the ball
+		createScoreBoard();
+		
+        // add spotlight for the shadows
+        var dirLight = new THREE.DirectionalLight( 0xFFFFFF );
+        dirLight.position.set( 0, -40, 30 );
+        dirLight.shadowCameraNear = 20;
+        dirLight.shadowCameraFar = 50;
+        dirLight.castShadow = true;
+        dirLight.intensity = 2;
+        scene.add( dirLight );
+		
+		document.body.appendChild( renderer.domElement );
+		orbControls = new THREE.OrbitControls( camera, renderer.domElement );
+
+		p1ScoreOld = p1Score;
+		p2ScoreOld = p2Score;
+
+		updateScore();
+
+		render();
+	}
+	
+	function render()
+	{
+		//camera.rotation.y += 0.1 * Math.PI / 180;
+		//camera.rotation.x += 0.06 * Math.PI / 180;
+
+		moveBallAndMaintainPaddles();
+		if(p1Score != p1ScoreOld || p2Score != p2ScoreOld)
+		{
+			updateScore();
+		}
+		requestAnimationFrame( render );
+		renderer.render( scene, camera );
+		p1ScoreOld = p1Score;
+		p2ScoreOld = p2Score;
+	}
+	
+	window.onload = init;
+</script>
+
+</body>
+
+</html>
