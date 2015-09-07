@@ -17,4 +17,6 @@ The sound effects were found at SoundBible.com and haven't been altered. They ar
 </br>applause3.mp3 === http://soundbible.com/2087-Audience-Applause.html
 </br></br>
 
-Each score is updated again by the same collision detection, but with the caveat that there is no collision with the paddle. Each point awarded to the player also decreases the player's paddle speed marginally (to create more of a challenge).
+Each score is updated again by the same collision detection, but with the caveat that there is no collision with the paddle. Each point awarded to the player also decreases the player's paddle speed marginally (to create more of a challenge).</br></br>
+
+Tested and functions in latest versions of the following browsers: Chrome, Firefox, Safari, and IE11.
