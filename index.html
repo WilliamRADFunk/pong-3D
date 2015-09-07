@@ -487,104 +487,77 @@
 		}
 	}
 	// Creates both scores, updating only when a score changes.
-	function updateCrowd()
+	function createCrowd()
 	{
-		scene.remove( 	spectator01, spectator02, spectator03, spectator04, spectator05, 
-						spectator06, spectator07, spectator08, spectator09, spectator10, 
-						spectator11, spectator12, spectator13, spectator14, spectator15, 
-						spectator16, spectator17, spectator18, spectator19, spectator20
-					);
-		if(crowdCounter == 0)
-		{
-			var spectator01Geometry = new THREE.PlaneGeometry( 0.25, 0.25, 1, 10);
-			var spectator01Material = new THREE.MeshLambertMaterial( {color: 'green'} );
-			var spectator01 = new THREE.Mesh( spectator01Geometry, spectator01Material );
-			spectator01.position.x = -5;
-			spectator01.position.y = -7;
-			spectator01.position.z = 1;
-			spectator01.rotation.x = 25 * Math.PI / 180;
-			scene.add( spectator01 );
+		var yellowMaterial = new THREE.MeshLambertMaterial( {color: 0xFFFF00} );
+		var lavenderMaterial = new THREE.MeshLambertMaterial( {color: 0xFF00FF} );
+		var cyanMaterial = new THREE.MeshLambertMaterial( {color: 0x00FFFF} );
+		var blueMaterial = new THREE.MeshLambertMaterial( {color: 0x0000FF} );
+		var greenMaterial = new THREE.MeshLambertMaterial( {color: 0x00FF00} );
+		var redMaterial = new THREE.MeshLambertMaterial( {color: 0xFF0000} );
 
-			var spectator02Geometry = new THREE.PlaneGeometry( 0.25, 0.25, 1, 10);
-			var spectator02Material = new THREE.MeshLambertMaterial( {color: 'green'} );
-			var spectator02 = new THREE.Mesh( spectator02Geometry, spectator01Material );
-			spectator02.position.x = 5;
-			spectator02.position.y = -7;
-			spectator02.position.z = 1.125;
-			spectator02.rotation.x = 25 * Math.PI / 180;
-			scene.add( spectator02 );
+		var boxGeometry = new THREE.BoxGeometry( 0.25, 0.25, 0.25);
 
-			//crowdCounter++;
-		}
-		else if(crowdCounter == 1)
-		{
-			var spectator01Geometry = new THREE.PlaneGeometry( 0.25, 0.25, 1, 10);
-			var spectator01Material = new THREE.MeshLambertMaterial( {color: 0xFF0000} );
-			var spectator01 = new THREE.Mesh( spectator01Geometry, spectator01Material );
-			spectator01.position.x = -5;
-			spectator01.position.y = -7;
-			spectator01.position.z = 1.125;
-			spectator01.rotation.x = 25 * Math.PI / 180;
-			scene.add( spectator01 );
+		var num1rowRightx = 4.625;
+		var num2rowRightx = 4.875;
+		var num3rowRightx = 5.125;
+		var num1rowLeftx = -4.625;
+		var num2rowLeftx = -4.875;
+		var num3rowLeftx = -5.125;
+		var num4rowLeftx = -5.375
 
-			var spectator02Geometry = new THREE.PlaneGeometry( 0.25, 0.25, 1, 10);
-			var spectator02Material = new THREE.MeshLambertMaterial( {color: 0x00FF00} );
-			var spectator02 = new THREE.Mesh( spectator02Geometry, spectator01Material );
-			spectator02.position.x = 5;
-			spectator02.position.y = -7;
-			spectator02.position.z = 1;
-			spectator02.rotation.x = 25 * Math.PI / 180;
-			scene.add( spectator02 );
+		var num1rowz = 0.375;
+		var num2rowz = 0.625;
+		var num3rowz = 0.875;
+		var num4rowz = 1.125;
 
+		spectator01 = new THREE.Mesh( boxGeometry, redMaterial );
+		spectator01.position.x = num3rowLeftx;
+		spectator01.position.y = -7;
+		spectator01.position.z = num3rowz;
+		scene.add( spectator01 );
 
-			//crowdCounter++;
-		}
-		else if(crowdCounter == 2)
-		{
-			var spectator01Geometry = new THREE.PlaneGeometry( 0.25, 0.25, 1, 10);
-			var spectator01Material = new THREE.MeshLambertMaterial( {color: 0x0000FF} );
-			var spectator01 = new THREE.Mesh( spectator01Geometry, spectator01Material );
-			spectator01.position.x = -5;
-			spectator01.position.y = -7;
-			spectator01.position.z = 1.25;
-			spectator01.rotation.x = 25 * Math.PI / 180;
-			scene.add( spectator01 );
+		spectator02 = new THREE.Mesh( boxGeometry, greenMaterial );
+		spectator02.position.x = num3rowRightx;
+		spectator02.position.y = 7;
+		spectator02.position.z = num3rowz;
+		scene.add( spectator02 );
 
-			var spectator02Geometry = new THREE.PlaneGeometry( 0.25, 0.25, 1, 10);
-			var spectator02Material = new THREE.MeshLambertMaterial( {color: 0x00FF00} );
-			var spectator02 = new THREE.Mesh( spectator02Geometry, spectator01Material );
-			spectator02.position.x = 5;
-			spectator02.position.y = -7;
-			spectator02.position.z = 1.125;
-			spectator02.rotation.x = 25 * Math.PI / 180;
-			scene.add( spectator02 );
+		spectator03 = new THREE.Mesh( boxGeometry, blueMaterial );
+		spectator03.position.x = num2rowRightx;
+		spectator03.position.y = 2;
+		spectator03.position.z = num2rowz;
+		scene.add( spectator03 );
 
+		spectator04 = new THREE.Mesh( boxGeometry, cyanMaterial );
+		spectator04.position.x = num1rowRightx;
+		spectator04.position.y = -5;
+		spectator04.position.z = num1rowz;
+		scene.add( spectator04 );
 
-			//crowdCounter++;
-		}
-		else
-		{
-			var spectator01Geometry = new THREE.PlaneGeometry( 0.25, 0.25, 1, 10);
-			var spectator01Material = new THREE.MeshLambertMaterial( {color: 0xFF0000} );
-			var spectator01 = new THREE.Mesh( spectator01Geometry, spectator01Material );
-			spectator01.position.x = -5;
-			spectator01.position.y = -7;
-			spectator01.position.z = 1;
-			spectator01.rotation.x = 25 * Math.PI / 180;
-			scene.add( spectator01 );
+		spectator05 = new THREE.Mesh( boxGeometry, cyanMaterial );
+		spectator05.position.x = num2rowLeftx;
+		spectator05.position.y = 5;
+		spectator05.position.z = num2rowz;
+		scene.add( spectator05 );
 
-			var spectator02Geometry = new THREE.PlaneGeometry( 0.25, 0.25, 1, 10);
-			var spectator02Material = new THREE.MeshLambertMaterial( {color: 'green'} );
-			var spectator02 = new THREE.Mesh( spectator02Geometry, spectator01Material );
-			spectator02.position.x = 5;
-			spectator02.position.y = -7;
-			spectator02.position.z = 1.25;
-			spectator02.rotation.x = 25 * Math.PI / 180;
-			scene.add( spectator02 );
+		spectator06 = new THREE.Mesh( boxGeometry, yellowMaterial );
+		spectator06.position.x = num4rowLeftx;
+		spectator06.position.y = 0;
+		spectator06.position.z = num4rowz;
+		scene.add( spectator06 );
 
+		spectator07 = new THREE.Mesh( boxGeometry, yellowMaterial );
+		spectator07.position.x = num2rowRightx;
+		spectator07.position.y = -2;
+		spectator07.position.z = num2rowz;
+		scene.add( spectator07 );
 
-			crowdCounter = 0;
-		}
+		spectator08 = new THREE.Mesh( boxGeometry, lavenderMaterial );
+		spectator08.position.x = num1rowLeftx;
+		spectator08.position.y = -2;
+		spectator08.position.z = num1rowz;
+		scene.add( spectator08 );
 	}
 	// Sets up the basics: camera, scene, renderer. Calls constructor methods.
 	function init()
@@ -638,7 +611,7 @@
 		p2ScoreOld = p2Score;
 
 		updateScore();
-		updateCrowd();
+		createCrowd();
 
 		render();
 	}
@@ -649,7 +622,6 @@
 		if(p1Score != p1ScoreOld || p2Score != p2ScoreOld)
 		{
 			updateScore();
-			updateCrowd();
 		}
 		requestAnimationFrame( render );
 		renderer.render( scene, camera );
