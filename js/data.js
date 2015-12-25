@@ -2,7 +2,6 @@
 var renderer;				// Object containing elements to auto-update.
 var scene;					// Object that contains all Three.js objects.
 var camera;					// Player's view point.
-var orbControls;			// Object giving player control of camera angle.
 var WIDTH;					// Width of screen at time of page load.
 var HEIGHT;					// Height of screen at time of page load.
 var COMPSPEED = 0.055;		// Speed at which computer paddle can move.
@@ -68,3 +67,4 @@ var one;					// Sound effect to play when ball hits player's paddle.
 var two;					// Sound effect to play when ball hits computer's paddle.
 var three;					// Sound effect to play when ball hits left bounding wall.
 var four;					// Sound effect to play when ball hits right bounding wall.
+var mouseX = 0;				// X position for mouse or touch to control paddle movement.

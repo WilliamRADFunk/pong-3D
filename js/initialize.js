@@ -470,6 +470,61 @@ function createCrowd()
 	spectator40.position.z = num1rowz;
 	scene.add( spectator40 );
 }
+function onDocumentMouseDown( event )
+{
+	event.preventDefault();
+	document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+	document.addEventListener( 'mouseup', onDocumentMouseUp, false );
+}
+function onDocumentMouseMove( event )
+{
+	var mouseXBefore = mouseX;
+	mouseX = event.clientX + (WIDTH / 2);
+	var posOrNeg = (mouseX > mouseXBefore) ? 1 : -1;
+	if( !(paddle1.position.x <= -3.5) && !(paddle1.position.x >= 3.5) )
+	{
+		paddle1.position.x += (PLAYERSPEED * posOrNeg);
+	}
+	else if(paddle1.position.x <= -3.5)
+	{
+		paddle1.position.x = -3.49;
+	}
+	else if(paddle1.position.x >= 3.5)
+	{
+		paddle1.position.x = 3.49;
+	}
+}
+function onDocumentMouseUp( event )
+{
+	document.removeEventListener( 'mousemove', onDocumentMouseMove, false );
+	document.removeEventListener( 'mouseup', onDocumentMouseUp, false );
+}
+function onDocumentTouchStart( event )
+{
+	if ( event.touches.length === 1 )
+	{
+		event.preventDefault();
+	}
+}
+function onDocumentTouchMove( event )
+{
+	var mouseXBefore = mouseX;
+	if ( event.touches.length === 1 && !(paddle1.position.x <= -3.5) && !(paddle1.position.x >= 3.5) )
+	{
+		event.preventDefault();
+		mouseX = event.touches[ 0 ].pageX;
+		var posOrNeg = (mouseX > mouseXBefore) ? 1 : -1;
+		paddle1.position.x += (PLAYERSPEED * posOrNeg);
+	}
+	else if( event.touches.length === 1 && paddle1.position.x <= -3.5 )
+	{
+		paddle1.position.x = -3.49;
+	}
+	else if( event.touches.length === 1 && paddle1.position.x >= 3.5 )
+	{
+		paddle1.position.x = 3.49;
+	}
+}
 // Sets up the basics: camera, scene, renderer. Calls constructor methods.
 function init()
 {
@@ -516,13 +571,16 @@ function init()
     scene.add( dirLight );
 	
 	document.body.appendChild( renderer.domElement );
-	orbControls = new THREE.OrbitControls( camera, renderer.domElement );
 
 	p1ScoreOld = p1Score;
 	p2ScoreOld = p2Score;
 
 	updateScore();
 	createCrowd();
+
+	document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+	document.addEventListener( 'touchstart', onDocumentTouchStart, false );
+	document.addEventListener( 'touchmove', onDocumentTouchMove, false );
 
 	render();
 }
